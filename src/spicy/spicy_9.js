@@ -155,7 +155,18 @@ export const someEven = (arr, test) => {
  *       -->  { pass: [1, 5, 31], fail: [90] }
  */
 export const filter = (arr, test) => {
-    
+    let p = [];
+    let f = [];
+
+    for (let el of arr) {
+        if (test(el)) {
+            p.push(el);
+        } else {
+            f.push(el);
+        }
+    }
+
+    return {pass: p, fail: f};
 };
 
 
@@ -165,7 +176,7 @@ export const filter = (arr, test) => {
  *   odd numbers. Use the "everyEven" function in this function.
  */
 export const allEvensAreOdd = (arr) => {
-
+    return everyEven(arr, x => x % 2 !== 0);
 };
 
 
@@ -175,7 +186,7 @@ export const allEvensAreOdd = (arr) => {
  *   array is an odd number. Use the "someEven" function in this function.
  */
 export const anEvenIsOdd = (arr) => {
-
+    return someEven(arr, x => x % 2 !== 0);
 };
 
 
@@ -186,5 +197,7 @@ export const anEvenIsOdd = (arr) => {
  *   pass the test. You must use the filter function.
  */
 export const hasExactly = (arr, test, n) => {
+    let result = filter(arr, test);
 
+    return n === result.p;
 };
