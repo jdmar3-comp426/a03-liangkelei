@@ -51,11 +51,7 @@ export function maxAndMin(numbers) {
         }
     }
 
-    let output = {};
-    output["max"] = max;
-    output["min"] = min;
-
-    return output;
+    return {max: Number(max), min: Number(min)};
 }
 
 /**
