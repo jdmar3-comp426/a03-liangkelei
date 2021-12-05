@@ -21,14 +21,22 @@ see under the methods section
  */
 export const allCarStats = {
     avgMpg: {
-        city: mpg_data.map(c => {return c.city_mpg}).reduce((a, b) => a + b) / mpg_data.length,
-        highway: mpg_data.map(c => {return c.highway_mpg}).reduce((a, b) => a + b) / mpg_data.length,
+        city: findCityAvg(object),
+        highway: findHighWayAvg(object),
     },
     allYearStats: getStatistics(mpg_data.map(c => {return c.year})),
     ratioHybrids: mpg_data.filter(c => {return c.hybrid}).length / mpg_data.length,
 };
 
+function findCityAvg(object) {
+    return object.map(c => {return c.city_mpg}).reduce((a, b) => a + b) / object.length;
+}
 
+function findHighWayAvg(object) {
+    return object.map(c => {return c.highway_mpg}).reduce((a, b) => a + b) / object.length;
+}
+
+function find
 /**
  * HINT: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
  *
