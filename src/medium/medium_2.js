@@ -107,7 +107,7 @@ export const moreStats = {
 
 
 function findMakerHybrids(object) {
-    return object.filter(c => c.hybrid).reduce(doThing(a, o), {});
+    return object.filter(c => c.hybrid).reduce((a, o) => doThing(a, o), {});
 }
 
 function doThing(a, o) {
@@ -123,7 +123,7 @@ function doThing(a, o) {
 }
 
 function findAvgMpgByYearAndHybrid(object) {
-    return object.reduce(doAnother(a, o), {});
+    return object.reduce((a, o) => doAnother(a, o), {});
 }
 
 function doAnother(a, o) {
