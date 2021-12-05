@@ -112,6 +112,7 @@ function findMakerHybrids(object) {
 
 function doThing(a, o) {
     let k = o["make"];
+
     if (!a[k]) {
         a[k] = {};
         a[k]["make"] = o["make"];
@@ -123,11 +124,12 @@ function doThing(a, o) {
 }
 
 function findAvgMpgByYearAndHybrid(object) {
-    return object.reduce((a, o) => doAnother(a, o), {});
+    return object.filter().reduce((a, o) => doAnother(a, o), {});
 }
 
 function doAnother(a, o) {
     let k = o["year"];
+
     if (!a[k]) {
         a[k] = {};
         a[k].hybrid = {city: 0, highway: 0};
