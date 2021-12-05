@@ -21,10 +21,10 @@ see under the methods section
  */
 export const allCarStats = {
     avgMpg: {
-        city: findCityAvg(object),
-        highway: findHighWayAvg(object),
+        city: findCityAvg(mpg_data),
+        highway: findHighWayAvg(mpg_data),
     },
-    allYearStats: findAllStats(object),
+    allYearStats: findAllStats(mpg_data),
     ratioHybrids: findRatioHybrids(mpg_data),
 };
 
