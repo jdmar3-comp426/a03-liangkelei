@@ -47,7 +47,7 @@ export function searchMpg(car_data, minCity, minHighway) {
     let output = [];
 
     for (let el of car_data) {
-        if (el.highway_mpg >= highway_mpg) {
+        if (el.highway_mpg >= minHighway) {
             if (el.city_mpg >= minCity) {
                 output.push(el);
             }

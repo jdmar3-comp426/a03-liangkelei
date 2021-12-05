@@ -124,7 +124,7 @@ function doThing(a, o) {
 }
 
 function findAvgMpgByYearAndHybrid(object) {
-    return object.filter().reduce((a, o) => doAnother(a, o), {});
+    return object.reduce((a, o) => doAnother(a, o), {});
 }
 
 function doAnother(a, o) {
