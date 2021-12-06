@@ -20,12 +20,29 @@ see under the methods section
  * @param {allCarStats.ratioHybrids} ratio of cars that are hybrids
  */
 export const allCarStats = {
-    avgMpg: undefined,
-    allYearStats: undefined,
-    ratioHybrids: undefined,
+    avgMpg: {
+        city: findCityAvg(mpg_data),
+        highway: findHighWayAvg(mpg_data),
+    },
+    allYearStats: findAllStats(mpg_data),
+    ratioHybrids: findRatioHybrids(mpg_data),
 };
 
+function findCityAvg(object) {
+    return object.map(c => {return c.city_mpg}).reduce((a, b) => a + b) / object.length;
+}
 
+function findHighWayAvg(object) {
+    return object.map(c => {return c.highway_mpg}).reduce((a, b) => a + b) / object.length;
+}
+
+function findAllStats(object) {
+    return getStatistics(object.map(c => c.year))
+}
+
+function findRatioHybrids(object) {
+    return object.filter(c => {return c.hybrid}).length / object.length;
+}
 /**
  * HINT: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
  *
@@ -84,6 +101,47 @@ export const allCarStats = {
  * }
  */
 export const moreStats = {
-    makerHybrids: undefined,
-    avgMpgByYearAndHybrid: undefined
+    makerHybrids: findMakerHybrids(mpg_data),
+    avgMpgByYearAndHybrid: findAvgMpgByYearAndHybrid(mpg_data)
 };
+
+
+function findMakerHybrids(object) {
+    return object.filter(c => c.hybrid).reduce((a, o) => doThing(a, o), {});
+}
+
+function doThing(a, o) {
+    let k = o["make"];
+
+    if (!a[k]) {
+        a[k] = {};
+        a[k]["make"] = o["make"];
+        a[k]["hybrids"] = [o["id"]];
+    }
+
+    return a;
+
+}
+
+function findAvgMpgByYearAndHybrid(object) {
+    return object.reduce((a, o) => doAnother(a, o), {});
+}
+
+function doAnother(a, o) {
+    let k = o["year"];
+
+    if (!a[k]) {
+        a[k] = {};
+        a[k].hybrid = {city: 0, highway: 0};
+
+        a[k].notHybrid = {city: 0, highway: 0};
+    }
+
+    if (!o.hybrid) {
+        a[k].notHybrid.city = o.city_mpg + a[k].notHybrid.city;
+        a[k].notHybrid.highway = o.highway_mpg + a[k].notHybrid.highway;
+    } else {
+        a[k].hybrid.city = o.city_mpg + a[k].hybrid.city_mpg;
+        a[k].hybrid.highway = o.highway_mpg + a[k].hybrid.highway_mpg;
+    }
+}
